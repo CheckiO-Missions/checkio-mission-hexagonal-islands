@@ -9,7 +9,6 @@ Each test is dict with
 
 from string import ascii_uppercase as au
 from random import sample, randint, choice
-from my_solution import hexagonal_islands
 
 
 def hexagonal_islands_make_random_tests(num):
@@ -76,20 +75,23 @@ def hexagonal_islands_make_random_tests(num):
     random_tests = []
     for _ in range(num):
         rest_hexes = set(all_hexes)
-        lands = []
+        coasts = []
+        answer = []
+        inlands = []
         for _ in range(randint(1, 10)):
             while True:
                 land, shore, adj_sea = make_island(rest_hexes)
                 if check_hole(adj_sea):
                     rest_hexes -= land | adj_sea
-                    lands += list(shore)
+                    coasts += list(shore)
+                    answer.append(len(land))
+                    inlands += list(land - shore)
                     break
             if not rest_hexes:
                 break
-        answer, inland_hexes = hexagonal_islands(set(lands))
-        random_tests.append({'input': lands,
-                             'answer': answer,
-                             'explanation': list(inland_hexes)})
+        random_tests.append({'input': coasts,
+                             'answer': sorted(answer),
+                             'explanation': inlands})
     return random_tests
 
 
