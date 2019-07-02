@@ -27,8 +27,8 @@ def hexagonal_islands_make_random_tests(num):
         sw = au[col_idx-1]+str(b_row)
         ne = au[col_idx+1]+str(u_row)
         se = au[col_idx+1]+str(b_row)
-        return set(map(lambda h: h[0]+str(h[1]) if h in all_hexes else None,
-            (n, ne, se, s, sw, nw)))
+        adj_hexes = (n, ne, se, s, sw, nw)
+        return set(map(lambda h: h if h in all_hexes else None, adj_hexes))
 
     def make_island(rest_hexes):
         next_hexes = {choice(list(rest_hexes))}
@@ -38,7 +38,7 @@ def hexagonal_islands_make_random_tests(num):
             next_hexes = set()
             for sx in search_hexes:
                 adj_hexes = (adjacent_hexes(sx)-{None}) & rest_hexes
-                next_hexes |= set(sample(adj_hexes, 
+                next_hexes |= set(sample(adj_hexes,
                                     randint(0, min(3, len(adj_hexes)))))
             next_hexes -= done_hexes
             done_hexes |= next_hexes
@@ -46,7 +46,7 @@ def hexagonal_islands_make_random_tests(num):
         shore_hexes = set()
         for dx in done_hexes:
             adj_hexes = adjacent_hexes(dx)
-            adj_sea_hexes |= adj_hexes - {None} - done_hexes
+            adj_sea_hexes |= adj_hexes-{None}-done_hexes
             if adj_hexes - done_hexes:
                 shore_hexes.add(dx)
         return done_hexes, shore_hexes, adj_sea_hexes
@@ -65,7 +65,7 @@ def hexagonal_islands_make_random_tests(num):
                     adj_hexes = adjacent_hexes(s)
                     if None in adj_hexes:
                         sea = True
-                    next_hexes |= (adjacent_hexes(s)-{None}) & shore_hexes
+                    next_hexes |= (adjacent_hexes(s) - {None}) & shore_hexes
                 next_hexes -= done_hexes
                 done_hexes |= next_hexes
             if not sea and len(shore_hexes - done_hexes) > 0:

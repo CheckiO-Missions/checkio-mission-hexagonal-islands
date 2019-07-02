@@ -10,19 +10,18 @@ def hexagonal_islands(shores):
         c_num = au.index(c)
         u_r = r - (1 - c_num % 2)
         b_r = r + c_num % 2
-
         n = c+str(r-1)
         s = c+str(r+1)
         nw = au[c_num-1]+str(u_r)
         sw = au[c_num-1]+str(b_r)
         ne = au[c_num+1]+str(u_r)
         se = au[c_num+1]+str(b_r)
+        adj_hexes = (n, ne, se, s, sw, nw)
+        return set(map(lambda h: h if h in all_hexes else None, adj_hexes))
 
-        return set(map(lambda h: h if h in all_hexes else None, (n, ne, se, s, sw, nw)))
-
-    def search_adj_lands(start):
-        done_hexes = {start}
-        next_hexes = {start}
+    def search_adjacent_shore_hexes(start_hex):
+        done_hexes = {start_hex}
+        next_hexes = {start_hex}
         while next_hexes:
             search_hexes = next_hexes
             next_hexes = set()
@@ -32,11 +31,10 @@ def hexagonal_islands(shores):
             done_hexes |= next_hexes
         return done_hexes
 
-    def search_adj_hexes(start):
-        done_hexes = {start}
-        next_hexes = {start}
+    def search_adjacent_blank_hexes(start_hex):
+        done_hexes = {start_hex}
+        next_hexes = {start_hex}
         sea = False
-
         while next_hexes:
             search_hexes = next_hexes
             next_hexes = set()
@@ -50,21 +48,19 @@ def hexagonal_islands(shores):
             done_hexes |= next_hexes
         return sea, done_hexes
 
-    # islands
     islands = []
     rest_shores = set(shores)
     while rest_shores:
         tgt_hex = rest_shores.pop()
-        island = search_adj_lands(tgt_hex)
+        island = search_adjacent_shore_hexes(tgt_hex)
         islands.append(island)
         rest_shores -= island
 
-    # others
     rest_others = all_hexes - shores
     inland_hexes = set()
     while rest_others:
         tgt_hex = rest_others.pop()
-        sea, hexes = search_adj_hexes(tgt_hex)
+        sea, hexes = search_adjacent_blank_hexes(tgt_hex)
         if not sea:
             for i, island in enumerate(islands):
                 if island & hexes:
@@ -72,9 +68,4 @@ def hexagonal_islands(shores):
                     islands[i] = island | hexes
         rest_others -= hexes
 
-    # print(sorted(map(len, islands)), inland_hexes)
     return sorted(map(len, islands)), inland_hexes
-
-
-if __name__ == '__main__':
-    assert sorted(hexagonal_islands({'G8', 'G9', 'H7', 'H9', 'I8', 'I9'})) == [1, 3]
