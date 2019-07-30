@@ -18,7 +18,12 @@ Please, help the robots again.
 <p>You are given a set of coastal hexes for all islands as input value.
 You have to find all islands that those hexes represent and return a list  (tuple or iterable) of that size.</p>
 
-<p><strong>Note:</strong> The islands don't include other islands.</p>
+<p><strong>Note:</strong></p>
+<ul>
+    <li>The islands don't include other islands.</li>
+    <li>If there is no island (input == set ()), return [].</li>
+    <li>There are also case that  no sea. (In this case your answer is [108].)</li>
+</ul>
 
 <!-- Put some usage examples -->
 <div class='for_info_only'>
@@ -30,6 +35,7 @@ You have to find all islands that those hexes represent and return a list  (tupl
 sorted(hexagonal_islands({'C5','E5','F4','F5','H4','H5','I4','I6','J4','J5'})) == [1, 3, 7] 
 sorted(hexagonal_islands({'A1','A2','A3','A4','B1','B4','C2','C5','D2', 'D3','D4','D5',
                             'H6','H7','H8','I6','I9','J5','J9','K6','K9','L6','L7','L8'}) == [16, 19]
+sorted(hexagonal_islands(set())) == []
 </pre>
 <p>
 <img src='{{MEDIA}}hexagonal_islands_example01.png' title='example01' style='max-height: 300px'>
