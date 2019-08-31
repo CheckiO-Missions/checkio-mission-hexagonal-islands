@@ -76,7 +76,7 @@ requirejs(['ext_editor_io', 'jquery_190', 'raphael_210'],
                             = [c*R*1.5+R+os, r*H*2+(H*(c%2))+H+os]
                         const fig = String.fromCodePoint(c+65)+(r+1)
                         hexagon_dict[fig] = draw_hex(cx, cy)
-                        paper.text(cx, cy, fig)
+                        paper.text(cx, cy, fig).attr({'font-size': '9px', 'fill': 'black'})
                     }
                 }
             }
