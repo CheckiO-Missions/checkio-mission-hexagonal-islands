@@ -37,7 +37,7 @@ def hexagonal_islands_make_random_tests(num):
             next_hexes = set()
             for sx in search_hexes:
                 adj_hexes = (adjacent_hexes(sx)-{None}) & rest_hexes
-                next_hexes |= set(sample(adj_hexes,
+                next_hexes |= set(sample(list(adj_hexes),
                                     randint(0, min(3, len(adj_hexes)))))
             next_hexes -= done_hexes
             done_hexes |= next_hexes
