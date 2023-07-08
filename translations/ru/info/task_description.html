@@ -1,0 +1,66 @@
+<!-- Describe task in general -->
+
+<p>
+Эта миссия похожа на миссию <a href='https://py.checkio.org/en/mission/calculate-islands/'>“Calculate Islands”</a> где вы имеете дело с шестиугольной сеткой. Пожалуйста, помогите роботам снова.
+</p>
+
+<p>Размер шестиугольной сетки <b>12x9</b> (от 'A1' до 'L9').</p>
+<ul>
+    <li>Ее характеристики:</li>
+    <ul>
+        <li>буквы алфавита представляют столбцы, а цифры - строки;</li>
+        <li>она имеет плоскую вершину;</li>
+        <li>четные столбцы сдвинуты вниз.</li>
+    </ul>
+</ul>
+
+<p>В качестве входного значения вам дается набор прибрежных шестиугольников(гексов) для всех островов. Вы должны найти все острова, которые представляют эти гексы, и вернуть список (кортеж или последовательность) такого размера.</p>
+
+<p><strong>Примечание:</strong></p>
+<ul>
+    <li>Острова не включают другие острова.</li>
+    <li>Если острова нет (ввод == set ()), возвращается [].</li>
+    <li>Также возможен случай, когда нет моря. (В этом случае ваш ответ будет [108].)</li>
+</ul>
+
+<!-- Put some usage examples -->
+<div class='for_info_only'>
+<p>
+	<strong>Примеры:</strong>
+</p>
+
+<pre class='brush: python'>
+sorted(hexagonal_islands({'C5','E5','F4','F5','H4','H5','I4','I6','J4','J5'})) == [1, 3, 7] 
+sorted(hexagonal_islands({'A1','A2','A3','A4','B1','B4','C2','C5','D2', 'D3','D4','D5',
+                            'H6','H7','H8','I6','I9','J5','J9','K6','K9','L6','L7','L8'}) == [16, 19]
+sorted(hexagonal_islands(set())) == []
+</pre>
+<p style="text-align: center;">
+<img src='{{MEDIA}}hexagonal_islands_example01.png' title='example01' style='max-height: 294px; margin: 10px;'>
+<img src='{{MEDIA}}hexagonal_islands_example02.png' title='example02' style='max-height: 294px; margin: 10px;'>
+</p>
+</div>
+
+<!-- Explain input and output values -->
+<p>
+	<strong>Входные данные:</strong>
+Прибрежные гексы всех островов (множество(set) строк(strings)).
+</p>
+
+<p>
+	<strong>Выходные данные:</strong>
+Размеры всех островов (последовательность (список или кортеж) целых чисел).
+</p>
+
+<p>
+	<strong>Как используется:</strong>
+</p>
+Для распознавания площади на шестиугольной(гексагональной) сетке.
+
+
+<p>
+	<strong>Предварительные условия:</strong>
+<ul>
+    <li>all(re.fullmatch('[A-L][1-9]', i) for i in input)</li>
+</ul>
+</p>
